@@ -1,0 +1,19 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: podinfo
+  namespace: default
+spec:
+  chart:
+    repository: https://stefanprodan.github.io/podinfo
+    name: podinfo
+    version: 5.1.2
+  values:
+    serviceMonitor:
+      enabled: false
+    replicaCount: 2
+    backend: http://backend-podinfo:9898/echo
+    hpa:
+      enabled: true
+    service:
+      type: NodePort
